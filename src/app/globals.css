@@ -1,0 +1,249 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Viraja Consultancy — design tokens
+
+   The five "anchor" colours below were sampled directly out of the official
+   logo artwork (public/brand/logo-full.png, derived from the original
+   logo.png). Everything else is a tint or shade mixed from those anchors, so
+   the site can never drift away from the real brand identity.
+   ========================================================================== */
+
+@theme {
+  --font-sans:
+    var(--font-inter-tight), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+
+  /* --- brand anchors (exact, sampled from the logo) --- */
+  --color-brand-blue: #0493fc; /* rgb(4, 147, 252)  logo bright blue / cyan */
+  --color-brand-navy: #021d64; /* rgb(2, 29, 100)   logo deep navy         */
+  --color-brand-red: #ce0a14; /* rgb(206, 10, 20)   Viraja red            */
+  --color-brand-green: #239a39; /* rgb(35, 154, 57)   logo emblem green      */
+  --color-brand-gold: #f1b614; /* rgb(241, 182, 20)  logo emblem gold       */
+
+  /* --- shades and tints actually used, mixed from the anchors above --- */
+  --color-navy-50: #f6f7fb;
+  --color-navy-200: #d6dcf0;
+  --color-navy-300: #b0bade;
+  --color-navy-500: #4a5b9b;
+  --color-navy-700: #162a61;
+  --color-navy-800: #0a1a4d;
+  --color-navy-900: #021d64;
+
+  --color-azure-50: #f2f8ff;
+  --color-azure-100: #e3f1ff;
+  --color-azure-200: #c2e5ff;
+  --color-azure-300: #8ed1ff;
+  --color-azure-400: #52b7ff;
+
+  --color-crimson-600: #ce0a14;
+
+  /* --- neutral ink scale --- */
+  --color-ink: #0b1630;
+  --color-ink-soft: #3a4767;
+  --color-ink-muted: #66748f;
+  --color-line: #e4e9f4;
+  --color-line-strong: #d3dbec;
+  --color-surface: #f7f9fd;
+  --color-surface-2: #eff3fb;
+
+  /* --- geometry --- */
+  --radius-card: 1.125rem;
+  --radius-panel: 1.75rem;
+
+  /* --- elevation, used sparingly --- */
+  --shadow-card: 0 1px 2px rgb(2 29 100 / 0.04), 0 10px 30px -18px rgb(2 29 100 / 0.28);
+  --shadow-lift: 0 2px 4px rgb(2 29 100 / 0.05), 0 26px 50px -26px rgb(2 29 100 / 0.32);
+  --shadow-header: 0 1px 0 rgb(2 29 100 / 0.06), 0 14px 32px -26px rgb(2 29 100 / 0.4);
+
+  /* --- motion --- */
+  --ease-brand: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6.5rem;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  /* Visible, consistent keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-azure-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-azure-200);
+    color: var(--color-navy-900);
+  }
+
+  /* Headings never get a browser-default margin. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Icons should never blow out a flex row. */
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Single page gutter used by every section, so widths stay consistent. */
+@utility shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Small uppercase label used for eyebrows and card kickers. */
+@utility label-xs {
+  font-size: 0.6875rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Hairline brand rule: a short gradient stroke in the brand colours. */
+@utility brand-rule {
+  background-image: linear-gradient(
+    to right,
+    var(--color-brand-blue) 0%,
+    var(--color-brand-navy) 38%,
+    var(--color-brand-green) 66%,
+    var(--color-brand-gold) 100%
+  );
+}
+
+/* Deep navy panel used by the footer and the contact CTA band. */
+@utility panel-navy {
+  background-color: var(--color-navy-900);
+  background-image:
+    radial-gradient(120% 100% at 100% 0%, rgb(4 147 252 / 0.24) 0%, transparent 58%),
+    radial-gradient(90% 90% at 0% 100%, rgb(206 10 20 / 0.16) 0%, transparent 55%);
+}
+
+/* Very soft blue wash for alternating page sections. */
+@utility wash-azure {
+  background-color: var(--color-surface);
+  background-image: radial-gradient(90% 70% at 50% 0%, rgb(4 147 252 / 0.07) 0%, transparent 70%);
+}
+
+/* The one easing curve used by every transition and animation on the site. */
+@utility ease-brand {
+  transition-timing-function: var(--ease-brand);
+  animation-timing-function: var(--ease-brand);
+}
+
+/* ==========================================================================
+   Entrance animations (CSS only — no JavaScript, so they cannot block paint)
+   ========================================================================== */
+
+@keyframes vc-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vc-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Restrained page/route transition. `template.tsx` remounts on navigation,
+   so this replays once per route change. */
+@utility page-enter {
+  animation: vc-fade 320ms var(--ease-brand) both;
+}
+
+/* Staggered hero entrance. Steps stay small and transform/opacity only. */
+@utility rise {
+  animation: vc-rise 620ms var(--ease-brand) both;
+}
+
+@utility delay-1 {
+  animation-delay: 60ms;
+}
+@utility delay-2 {
+  animation-delay: 130ms;
+}
+@utility delay-3 {
+  animation-delay: 200ms;
+}
+@utility delay-4 {
+  animation-delay: 270ms;
+}
+@utility delay-5 {
+  animation-delay: 340ms;
+}
+
+/* Underline that grows from the left for in-page links. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size 240ms var(--ease-brand);
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1.5px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — collapse every animation and transition
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
