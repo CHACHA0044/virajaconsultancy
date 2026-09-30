@@ -22,14 +22,18 @@ export default function AddressPage() {
             {/* Address details */}
             <Reveal className="lg:sticky lg:top-28">
               <div className="rounded-panel border border-line bg-white p-6 shadow-card sm:p-8">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-azure-50 text-navy-900 ring-1 ring-inset ring-azure-100">
-                  <FiMapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
-                </span>
+                <div className="flex items-center gap-4">
+  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-azure-50 text-navy-900 ring-1 ring-inset ring-azure-100">
+    <FiMapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
+  </span>
 
-                <h2 className="mt-5 text-[1.125rem] font-bold tracking-[-0.02em] text-navy-900">
-                  {contact.person}
-                </h2>
-
+  <h2 className="text-[1.125rem] font-bold tracking-[-0.02em] text-navy-900">
+    Viraja Consultancy
+  </h2>
+</div>
+              <p className="mt-4 border-l-2 border-azure-200 pl-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
+  Find us at <span className="animate-pulse">...</span>
+</p>
                 <address
                   className="mt-3 text-[1.0625rem] leading-relaxed text-ink not-italic sm:text-lg"
                   aria-label={address.singleLine}
@@ -41,23 +45,19 @@ export default function AddressPage() {
                   ))}
                 </address>
 
-                <p className="mt-4 border-l-2 border-azure-200 pl-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
-                  Find us at Sultan Complex, behind Kaiserbagh Bus Stand, Lucknow, Uttar Pradesh.
-                </p>
-
                 <div className="mt-7 flex flex-col gap-2.5 border-t border-line pt-6">
                   <ButtonLink href={address.directionsUrl} size="lg" external className="w-full">
                     Get directions
                     <FiArrowUpRight className="h-4 w-4" aria-hidden="true" focusable="false" />
                   </ButtonLink>
-                  <ButtonLink
+                  {/* <ButtonLink
                     href={`tel:${contact.phone.tel}`}
                     size="lg"
                     variant="secondary"
                     className="w-full"
                   >
                     Call {contact.phone.display}
-                  </ButtonLink>
+                  </ButtonLink> */}
                 </div>
               </div>
             </Reveal>

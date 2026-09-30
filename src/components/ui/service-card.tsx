@@ -36,34 +36,43 @@ export function ServiceCard({
         className="brand-rule absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-300 ease-brand group-hover:scale-x-100 group-focus-visible:scale-x-100"
       />
 
-      <div className="flex items-start justify-between gap-3">
-        <span
-          className={cn(
-            'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl',
-            'bg-azure-50 text-navy-900 ring-1 ring-inset ring-azure-100',
-            'transition-[background-color,color,box-shadow,transform] duration-300 ease-brand',
-            'group-hover:-translate-y-0.5 group-hover:bg-navy-900 group-hover:text-white group-hover:ring-navy-900 group-focus-visible:-translate-y-0.5 group-focus-visible:bg-navy-900 group-focus-visible:text-white',
-          )}
-        >
-          <ServiceIcon
-            name={service.icon}
-            className="h-[1.25rem] w-[1.25rem] transition-transform duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:rotate-[-5deg] group-hover:scale-105 group-focus-visible:-translate-y-0.5 group-focus-visible:rotate-[-5deg] group-focus-visible:scale-105"
-          />
-        </span>
+      <div className="flex items-center justify-between gap-3">
+  <div className="flex items-center gap-4">
+    <span
+    className={cn(
+      'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl',
+      'bg-azure-50 text-navy-900 ring-1 ring-inset ring-azure-100',
+      'transition-[background-color,color,box-shadow,transform] duration-300 ease-brand',
+      'group-hover:-translate-y-0.5 group-hover:bg-navy-900 group-hover:text-white group-hover:ring-navy-900 group-focus-visible:-translate-y-0.5 group-focus-visible:bg-navy-900 group-focus-visible:text-white',
+    )}
+  >
+    <ServiceIcon
+      name={service.icon}
+      className="h-[1.25rem] w-[1.25rem] transition-transform duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:rotate-[-5deg] group-hover:scale-105 group-focus-visible:-translate-y-0.5 group-focus-visible:rotate-[-5deg] group-focus-visible:scale-105"
+    />
+  </span>
 
-        {typeof index === 'number' ? (
-          <span
-            aria-hidden="true"
-            className="label-xs pt-1.5 text-navy-300 tabular-nums transition-colors duration-300 group-hover:text-azure-400"
-          >
-            {String(index + 1).padStart(2, '0')}
-          </span>
-        ) : null}
-      </div>
+    <h3 className="text-[1.0625rem] font-bold leading-snug tracking-[-0.02em] text-navy-900">
+      {service.name}
+    </h3>
+  </div>
 
-      <h3 className="mt-5 text-[1.0625rem] font-bold leading-snug tracking-[-0.02em] text-navy-900">
-        {service.name}
-      </h3>
+  {/* {typeof index === 'number' ? (
+    <span
+    className={cn(
+      'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl',
+      'bg-azure-50 text-navy-900 ring-1 ring-inset ring-azure-100',
+      'transition-[background-color,color,box-shadow,transform] duration-300 ease-brand',
+      'group-hover:-translate-y-0.5 group-hover:bg-navy-900 group-hover:text-white group-hover:ring-navy-900 group-focus-visible:-translate-y-0.5 group-focus-visible:bg-navy-900 group-focus-visible:text-white',
+    )}
+  >
+    <ServiceIcon
+      name={service.icon}
+      className="h-[1.25rem] w-[1.25rem] transition-transform duration-300 ease-brand group-hover:-translate-y-0.5 group-hover:rotate-[-5deg] group-hover:scale-105 group-focus-visible:-translate-y-0.5 group-focus-visible:rotate-[-5deg] group-focus-visible:scale-105"
+    />
+  </span>
+  ) : null} */}
+</div>
 
       <p className="mt-2.5 text-[0.875rem] leading-relaxed text-ink-soft">{service.summary}</p>
 

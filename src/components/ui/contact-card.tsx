@@ -29,12 +29,12 @@ export const contactActions: readonly Action[] = [
     icon: FiMessageCircle,
     external: true,
   },
-  {
-    key: 'address',
-    label: 'View address',
-    href: '/address',
-    icon: FiMapPin,
-  },
+  // {
+  //   key: 'address',
+  //   label: 'View address',
+  //   href: '/address',
+  //   icon: FiMapPin,
+  // },
 ] as const
 
 /**

@@ -33,13 +33,15 @@ export default function ContactPage() {
 
             <Reveal delay={0.08}>
               <div className="h-full rounded-panel border border-line bg-surface p-6 sm:p-7">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-navy-900 ring-1 ring-inset ring-line">
-                  <FiMapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
-                </span>
+                <div className="flex items-center gap-4">
+  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-navy-900 ring-1 ring-inset ring-line">
+    <FiMapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
+  </span>
 
-                <h2 className="mt-5 text-[1.0625rem] font-bold tracking-[-0.02em] text-navy-900">
-                  Where to find us
-                </h2>
+  <h2 className="text-[1.0625rem] font-bold tracking-[-0.02em] text-navy-900">
+    Where to find us
+  </h2>
+</div>
 
                 <address
                   className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft not-italic"
@@ -59,12 +61,12 @@ export default function ContactPage() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.12} className="mt-6">
+          {/* <Reveal delay={0.12} className="mt-6">
             <p className="text-[0.75rem] leading-relaxed text-ink-muted">
               This website is a front-end only project, so the buttons above connect you directly to
               the phone and WhatsApp. No information is collected or stored here.
             </p>
-          </Reveal>
+          </Reveal> */}
         </div>
       </section>
     </>

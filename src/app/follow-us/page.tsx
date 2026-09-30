@@ -140,13 +140,13 @@ export default function FollowUsPage() {
             ))}
           </StaggerGroup>
 
-          <Reveal delay={0.12}>
+          {/* <Reveal delay={0.12}>
             <p className="mt-7 max-w-[52ch] text-[0.8125rem] leading-relaxed text-ink-muted">
               LinkedIn and YouTube have not been confirmed for this business yet, so they are left
               unlinked rather than guessed. An official profile is added here as soon as it is
               verified.
             </p>
-          </Reveal>
+          </Reveal> */}
         </div>
       </section>
     </>
