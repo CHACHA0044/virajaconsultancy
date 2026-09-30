@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { FiMenu, FiX } from 'react-icons/fi'
 import { BrandLink } from '@/components/ui/brand-mark'
 import { MobileNav } from '@/components/layout/mobile-nav'
@@ -133,9 +133,13 @@ export function Header() {
           </Link>
 
           {/*
-            One button, two states. When the sheet opens it moves into the
-            panel's close slot and swaps the hamburger for a cross, so the
-            icon reads as a single control that has transformed.
+            One control, two states.
+
+            The button stays in the header flow in both states, so opening the
+            sheet cannot move it, and both glyphs live in the same fixed 20x20
+            box, overlaid rather than swapped side by side. Nothing about an
+            icon's own dimensions can resize the button, change the border or
+            push the icon off centre — only transform and opacity animate.
           */}
           <button
             ref={toggleRef}
@@ -145,30 +149,28 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-navigation"
             className={cn(
-              'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-navy-900 lg:hidden',
-              'transition-colors duration-200 ease-brand',
-              open
-                ? 'pointer-events-auto fixed top-[var(--vc-sheet-close-top)] right-[var(--vc-sheet-close-right)] z-[90] hover:bg-navy-50'
-                : 'border border-line hover:border-navy-300 hover:bg-navy-50',
+              'pointer-events-auto grid h-11 w-11 shrink-0 place-items-center rounded-full',
+              'border border-line text-navy-900 transition-colors duration-200 ease-brand',
+              'hover:border-navy-300 hover:bg-navy-50',
+              'lg:hidden',
             )}
           >
-            <AnimatePresence initial={false}>
+            <span className="relative block h-5 w-5" aria-hidden="true">
               <motion.span
-                key={open ? 'close' : 'menu'}
-                initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
+                className="absolute inset-0 grid place-items-center"
+                animate={{ opacity: open ? 0 : 1, rotate: open ? 90 : 0 }}
                 transition={iconTransition}
-                className="flex items-center justify-center"
-                aria-hidden="true"
               >
-                {open ? (
-                  <FiX className="h-5 w-5" focusable="false" />
-                ) : (
-                  <FiMenu className="h-5 w-5" focusable="false" />
-                )}
+                <FiMenu className="h-5 w-5" focusable="false" />
               </motion.span>
-            </AnimatePresence>
+              <motion.span
+                className="absolute inset-0 grid place-items-center"
+                animate={{ opacity: open ? 1 : 0, rotate: open ? 0 : -90 }}
+                transition={iconTransition}
+              >
+                <FiX className="h-5 w-5" focusable="false" />
+              </motion.span>
+            </span>
           </button>
         </div>
       </div>

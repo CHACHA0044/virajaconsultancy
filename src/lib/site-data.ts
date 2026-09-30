@@ -172,22 +172,34 @@ export type SocialPlatform = 'facebook' | 'instagram' | 'linkedin' | 'youtube'
 export type SocialLink = {
   readonly platform: SocialPlatform
   readonly label: string
-  readonly handle: string
   readonly href: string
 }
 
 /**
  * Verified social profiles only.
  *
- * This list is intentionally empty: no official profile has been confirmed for
- * this business, so none is published and none is guessed. Adding a verified
- * entry here is the single edit needed to publish it on /follow-us.
+ * Facebook and Instagram have been confirmed and are published on /follow-us.
+ * LinkedIn and YouTube have not, so they are deliberately absent here and are
+ * never guessed — the follow-us page renders them as a clear "soon" state
+ * instead of as a broken link. Adding a verified entry to this list is the
+ * single edit needed to publish another profile.
  */
-export const socialLinks: readonly SocialLink[] = [] as const
+export const socialLinks: readonly SocialLink[] = [
+  {
+    platform: 'facebook',
+    label: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61594786980129',
+  },
+  {
+    platform: 'instagram',
+    label: 'Instagram',
+    href: 'https://www.instagram.com/virajaconsultancy/',
+  },
+] as const
 
 /**
- * Platforms the follow-us page is ready to display. With no verified profile
- * these render as a clear "not yet" state rather than as broken links.
+ * Platforms the follow-us page is ready to display. Any platform that is not
+ * in `socialLinks` renders as a clear "soon" state rather than as a broken link.
  */
 export const socialPlatforms: readonly { platform: SocialPlatform; label: string }[] = [
   { platform: 'facebook', label: 'Facebook' },

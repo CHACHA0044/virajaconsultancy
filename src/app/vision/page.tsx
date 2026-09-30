@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { FiArrowRight } from 'react-icons/fi'
 import { BrandArcs, BrandArcsMirror } from '@/components/ui/brand-arcs'
 import { brandLockup } from '@/components/ui/brand-mark'
-import { ButtonLink } from '@/components/ui/button'
 import { PageHeader } from '@/components/ui/page-header'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionHeading } from '@/components/ui/section-heading'
@@ -51,12 +49,10 @@ export default function VisionPage() {
               </p>
             </Reveal>
 
-            {/* Restrained brand strokes: blue, red, green, gold. */}
+            {/* Restrained brand strokes: blue, green, gold. */}
             <Reveal delay={0.14} className="mt-9 w-full">
               <div className="mx-auto flex max-w-md items-center gap-3" aria-hidden="true">
                 <span className="h-px flex-1 bg-brand-blue/35" />
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
-                <span className="h-px flex-1 bg-brand-navy/15" />
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
                 <span className="h-px flex-1 bg-brand-navy/15" />
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
@@ -85,21 +81,6 @@ export default function VisionPage() {
 
           <Reveal delay={0.08} className="mt-9 sm:mt-10">
             <ServiceAreaList />
-          </Reveal>
-
-          <Reveal delay={0.12} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/services" size="lg" className="w-full sm:w-auto">
-              View services
-              <FiArrowRight className="h-4 w-4" aria-hidden="true" focusable="false" />
-            </ButtonLink>
-            <ButtonLink
-              href="/contact"
-              size="lg"
-              variant="secondary"
-              className="w-full sm:w-auto"
-            >
-              Contact us
-            </ButtonLink>
           </Reveal>
         </div>
       </section>

@@ -1,4 +1,3 @@
-import { AddressPreview } from '@/components/sections/address-preview'
 import { BrandStatement } from '@/components/sections/brand-statement'
 import { ContactPreview } from '@/components/sections/contact-preview'
 import { Hero } from '@/components/sections/hero'
@@ -13,7 +12,6 @@ export default function HomePage() {
       <ServicesPreview />
       <VisionPreview />
       <ContactPreview />
-      <AddressPreview />
     </>
   )
 }

@@ -199,7 +199,7 @@ export function MobileNav({
             )}
           >
             {/* Top of the panel: wordmark, hairline, and room for the header's close control. */}
-            <div className="flex h-[var(--vc-header-h)] shrink-0 items-center border-b border-line py-2 pl-5 pr-16">
+            <div className="flex h-[var(--vc-header-h)] shrink-0 items-center border-b border-line py-2 pl-5 pr-[var(--vc-toggle-reserve)]">
               <p id={labelledBy} className="min-w-0">
                 <span className="block truncate text-[0.875rem] font-bold tracking-[-0.02em] text-navy-900">
                   {site.name}

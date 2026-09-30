@@ -65,16 +65,20 @@
      Shared layout metrics. The header, the mobile navigation panel and the
      panel's close slot all read these, so the sheet always lines up with the
      header instead of relying on duplicated magic numbers.
+
+     The close control lives in the header flow at every size, so the panel only
+     has to reserve the space the header already occupies: page gutter, plus the
+     fixed square button, plus the gap after it.
   */
   :root {
     --vc-header-h: 4rem;
-    --vc-sheet-close-top: 0.625rem;
-    --vc-sheet-close-right: 0.75rem;
+    --vc-toggle-reserve: calc(1.25rem + 2.75rem + 0.5rem);
   }
 
-  @media (width >= 64rem) {
+  @media (width >= 40rem) {
     :root {
       --vc-header-h: 4.25rem;
+      --vc-toggle-reserve: calc(2rem + 2.75rem + 0.5rem);
     }
   }
 

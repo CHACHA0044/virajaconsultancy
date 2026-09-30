@@ -41,7 +41,7 @@ export function Hero() {
             {site.heroSupport}
           </p>
 
-          <div className="rise delay-5 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+          <div className="rise delay-5 mt-10 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:items-center sm:gap-4">
             <ButtonLink href="/services" size="lg" className="w-full sm:w-auto">
               Explore services
               <FiArrowRight className="h-4 w-4" aria-hidden="true" focusable="false" />

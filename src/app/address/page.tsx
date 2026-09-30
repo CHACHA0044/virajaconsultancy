@@ -41,6 +41,10 @@ export default function AddressPage() {
                   ))}
                 </address>
 
+                <p className="mt-4 border-l-2 border-azure-200 pl-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
+                  Find us at Sultan Complex, behind Kaiserbagh Bus Stand, Lucknow, Uttar Pradesh.
+                </p>
+
                 <div className="mt-7 flex flex-col gap-2.5 border-t border-line pt-6">
                   <ButtonLink href={address.directionsUrl} size="lg" external className="w-full">
                     Get directions
