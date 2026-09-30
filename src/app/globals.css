@@ -61,6 +61,23 @@
 }
 
 @layer base {
+  /*
+     Shared layout metrics. The header, the mobile navigation panel and the
+     panel's close slot all read these, so the sheet always lines up with the
+     header instead of relying on duplicated magic numbers.
+  */
+  :root {
+    --vc-header-h: 4rem;
+    --vc-sheet-close-top: 0.625rem;
+    --vc-sheet-close-right: 0.75rem;
+  }
+
+  @media (width >= 64rem) {
+    :root {
+      --vc-header-h: 4.25rem;
+    }
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 6.5rem;

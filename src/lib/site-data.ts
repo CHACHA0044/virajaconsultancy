@@ -16,6 +16,14 @@ export const site = {
   /** Existing brand wording. */
   pillars: ['PROPERTY', 'MARKETING', 'GROWTH'] as const,
   brandStatement: 'ONE CONSULTANCY. MULTIPLE SOLUTIONS.',
+  /** The single sentence that says what the consultancy covers. */
+  heroLine:
+    'One consultancy for legal, banking, finance, real estate, and digital marketing & promotion.',
+  /** The follow-on instruction, kept plain and non-promotional. */
+  heroSupport: 'Explore the services and contact Viraja Consultancy to discuss your requirement.',
+  /** The brand direction behind the vision page, in one short statement. */
+  visionLine:
+    'Viraja Consultancy exists to bring the service areas our clients need next under one name, and to keep the first conversation simple.',
   description:
     'Viraja Consultancy — real estate and digital marketing solutions. Legal, banking, finance, real estate, digital marketing, advertising and promotion. Lucknow, Uttar Pradesh.',
 } as const
@@ -54,27 +62,112 @@ export const address = {
 } as const
 
 /** Icon keys are resolved to React Icons in `components/ui/service-icon.tsx`. */
-export type ServiceIconKey =
-  'legal' | 'banking' | 'finance' | 'real-estate' | 'digital-marketing' | 'advertising'
+export type ServiceIconKey = 'legal' | 'banking' | 'finance' | 'real-estate' | 'digital-marketing'
 
 export type Service = {
+  /** URL segment for `/services/<slug>`. */
+  readonly slug: string
   readonly name: string
-  /** A single short word restating the category. Adds no claims. */
-  readonly descriptor: string
   readonly icon: ServiceIconKey
+  /** One-line, category-level summary. Adds no claims about deliverables. */
+  readonly summary: string
+  /** What this service area is about, described in general terms. */
+  readonly explore: readonly string[]
+  /** An honest boundary: what this area is and is not. */
+  readonly guidance: string
 }
 
-/** The service areas supplied for this website. No sub-services are invented. */
+/**
+ * The service areas supplied for this website.
+ *
+ * Copy rule: describe the category in general, informational terms only. No
+ * specific regulated service, guarantee or outcome is claimed here, because
+ * none has been confirmed for this business.
+ */
 export const services: readonly Service[] = [
-  { name: 'LEGAL', descriptor: 'Legal', icon: 'legal' },
-  { name: 'BANKING', descriptor: 'Banking', icon: 'banking' },
-  { name: 'FINANCE', descriptor: 'Finance', icon: 'finance' },
-  { name: 'REAL ESTATE', descriptor: 'Property', icon: 'real-estate' },
-  { name: 'DIGITAL MARKETING', descriptor: 'Marketing', icon: 'digital-marketing' },
-  { name: 'ADVERTISING & PROMOTION', descriptor: 'Promotion', icon: 'advertising' },
+  {
+    slug: 'legal',
+    name: 'LEGAL',
+    icon: 'legal',
+    summary: 'Documents, agreements and the paperwork that usually comes with them.',
+    explore: [
+      'Documents and agreements people commonly need read through before signing',
+      'Notices, receipts and records worth keeping for later reference',
+      'Which kind of professional a specific matter needs, and what to ask them',
+    ],
+    guidance:
+      'Viraja Consultancy is a consultancy, not a law firm. Tell us what your requirement is and we will say plainly whether it falls within what we can help with.',
+  },
+  {
+    slug: 'banking',
+    name: 'BANKING',
+    icon: 'banking',
+    summary: 'Bank forms, statements and the process questions that come with them.',
+    explore: [
+      'The documents a bank typically asks for, and how to arrange them',
+      'Forms, statements and reference details that an application depends on',
+      'Who to approach at the bank, and what is worth asking for in writing',
+    ],
+    guidance:
+      'We help you get the right information in front of the right desk. Accounts, offers and approvals always remain decisions for the bank itself.',
+  },
+  {
+    slug: 'finance',
+    name: 'FINANCE',
+    icon: 'finance',
+    summary: 'The numbers behind a money decision — costs, charges and planning.',
+    explore: [
+      'Understanding charges and fees, and where the money is actually going',
+      'Comparing options before taking on a financial commitment',
+      'Budgeting and planning questions for a business or a household',
+    ],
+    guidance:
+      'Nothing here is investment advice, and no return is ever guaranteed. Talk to us about the information you need rather than about a promised outcome.',
+  },
+  {
+    slug: 'real-estate',
+    name: 'REAL ESTATE',
+    icon: 'real-estate',
+    summary: 'Property — buying, selling, renting and the documents that travel with it.',
+    explore: [
+      'Property details and what a listing does and does not confirm',
+      'The documents usually needed to complete a sale, rent or handover',
+      'The costs involved at each stage, so nothing arrives as a surprise',
+    ],
+    guidance:
+      'Guidance and coordination are what we offer. Registration and legal transfer are carried out through the appropriate registered officials and professionals.',
+  },
+  {
+    slug: 'digital-marketing',
+    name: 'DIGITAL MARKETING & PROMOTION',
+    icon: 'digital-marketing',
+    summary: 'How a business is presented and found online, and how it is promoted.',
+    explore: [
+      'How a business appears and is found across search and social platforms',
+      'Promotions, offers and campaigns, and how each one is planned and run',
+      'The listings, profiles and content that customers actually see',
+    ],
+    guidance:
+      'No campaign can promise a fixed number of leads, sales or growth. What we can do is be clear about the plan, the budget and what gets measured.',
+  },
 ] as const
 
-export type SocialPlatform = 'facebook' | 'instagram'
+/**
+ * The service areas written as a single sentence, so the wording used on the
+ * home page, the services page and every detail page cannot drift apart.
+ */
+export const serviceAreaSentence =
+  'legal, banking, finance, real estate, and digital marketing & promotion'
+
+export function getService(slug: string): Service | undefined {
+  return services.find((service) => service.slug === slug)
+}
+
+export function getServiceHref(slug: string): `/${string}` {
+  return `/services/${slug}`
+}
+
+export type SocialPlatform = 'facebook' | 'instagram' | 'linkedin' | 'youtube'
 
 export type SocialLink = {
   readonly platform: SocialPlatform
@@ -86,22 +179,21 @@ export type SocialLink = {
 /**
  * Verified social profiles only.
  *
- * Adding a platform here is the single edit needed to publish it on /follow-us.
- * Entries are never generated, guessed or auto-derived.
+ * This list is intentionally empty: no official profile has been confirmed for
+ * this business, so none is published and none is guessed. Adding a verified
+ * entry here is the single edit needed to publish it on /follow-us.
  */
-export const socialLinks: readonly SocialLink[] = [
-  {
-    platform: 'facebook',
-    label: 'Facebook',
-    handle: 'virajaconsultancy',
-    href: 'https://www.facebook.com/profile.php?id=61594786980129',
-  },
-  {
-    platform: 'instagram',
-    label: 'Instagram',
-    handle: '@virajaconsultancy',
-    href: 'https://www.instagram.com/virajaconsultancy/',
-  },
+export const socialLinks: readonly SocialLink[] = [] as const
+
+/**
+ * Platforms the follow-us page is ready to display. With no verified profile
+ * these render as a clear "not yet" state rather than as broken links.
+ */
+export const socialPlatforms: readonly { platform: SocialPlatform; label: string }[] = [
+  { platform: 'facebook', label: 'Facebook' },
+  { platform: 'instagram', label: 'Instagram' },
+  { platform: 'linkedin', label: 'LinkedIn' },
+  { platform: 'youtube', label: 'YouTube' },
 ] as const
 
 export type NavItem = {

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FiArrowUpRight, FiMapPin, FiMessageCircle, FiPhone } from 'react-icons/fi'
 import { BrandMark } from '@/components/ui/brand-mark'
 import { BrandArcsMirror } from '@/components/ui/brand-arcs'
-import { address, contact, navigation, services, site } from '@/lib/site-data'
+import { address, contact, getServiceHref, navigation, services, site } from '@/lib/site-data'
 
 const year = new Date().getFullYear()
 
@@ -56,16 +56,23 @@ export function Footer() {
             <h2 className="label-xs text-azure-300">Services</h2>
             <ul className="mt-4 flex flex-col gap-2.5">
               {services.map((service) => (
-                <li key={service.name}>
+                <li key={service.slug}>
                   <Link
-                    href="/services"
-                    className="link-underline inline-block text-[0.875rem] text-azure-100/80 transition-colors duration-200 hover:text-white"
+                    href={getServiceHref(service.slug)}
+                    className="link-underline inline-block text-[0.8125rem] leading-snug text-azure-100/80 transition-colors duration-200 hover:text-white"
                   >
                     {service.name}
                   </Link>
                 </li>
               ))}
             </ul>
+            <Link
+              href="/services"
+              className="mt-4 inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-azure-200 transition-colors duration-200 hover:text-white"
+            >
+              All services
+              <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" focusable="false" />
+            </Link>
           </div>
 
           {/* Contact */}
@@ -108,30 +115,26 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <address className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-azure-100/70 not-italic">
+                {/* The footer links to the address page rather than repeating the
+                    address here, so it is never printed twice on one screen. */}
+                <Link
+                  href="/address"
+                  className="inline-flex items-center gap-2.5 text-[0.875rem] text-azure-100/85 transition-colors duration-200 hover:text-white"
+                >
                   <FiMapPin
-                    className="mt-0.5 h-3.5 w-3.5 text-azure-300"
+                    className="h-3.5 w-3.5 text-azure-300"
                     aria-hidden="true"
                     focusable="false"
                   />
-                  <span>
-                    {address.lines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </span>
-                </address>
+                  {address.city}, {address.region}
+                  <FiArrowUpRight
+                    className="h-3 w-3 opacity-60"
+                    aria-hidden="true"
+                    focusable="false"
+                  />
+                </Link>
               </li>
             </ul>
-
-            <Link
-              href="/address"
-              className="mt-4 inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-azure-200 transition-colors duration-200 hover:text-white"
-            >
-              View location
-              <FiArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" focusable="false" />
-            </Link>
           </div>
         </div>
 

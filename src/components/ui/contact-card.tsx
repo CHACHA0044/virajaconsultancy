@@ -59,7 +59,7 @@ export function ContactCard({
   return (
     <div
       className={cn(
-        'rounded-panel border p-6 sm:p-8',
+        'h-full rounded-panel border p-6 sm:p-7',
         dark ? 'border-white/12 bg-white/[0.06]' : 'border-line bg-white shadow-card',
         className,
       )}

@@ -1,82 +1,64 @@
 import { FiArrowRight } from 'react-icons/fi'
-import { BrandMark } from '@/components/ui/brand-mark'
-import { BrandArcs } from '@/components/ui/brand-arcs'
+import { BrandArcs, BrandArcsMirror } from '@/components/ui/brand-arcs'
 import { ButtonLink } from '@/components/ui/button'
 import { site } from '@/lib/site-data'
 
+/**
+ * Editorial hero. The wordmark carries the page, so the large standalone
+ * emblem that used to sit below the copy has been removed — the fold now
+ * goes straight from the headline to the service areas.
+ */
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-white">
-      <BrandArcs className="pointer-events-none absolute -right-32 -top-24 h-[22rem] w-[22rem] sm:-right-24 sm:-top-28 sm:h-[30rem] sm:w-[30rem]" />
+      <BrandArcs className="pointer-events-none absolute -right-36 -top-28 h-[19rem] w-[19rem] opacity-90 sm:-right-28 sm:-top-32 sm:h-[30rem] sm:w-[30rem]" />
+      <BrandArcsMirror className="pointer-events-none absolute -bottom-40 -left-32 h-[17rem] w-[17rem] opacity-60 sm:-left-28 sm:h-[26rem] sm:w-[26rem]" />
       <div
         aria-hidden="true"
-        className="wash-azure pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70"
+        className="wash-azure pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-80"
       />
 
-      <div className="shell relative pb-16 pt-12 sm:pb-24 sm:pt-16 lg:pb-28 lg:pt-20">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-          {/* Copy */}
-          <div>
-            <p className="rise delay-1 label-xs flex items-center gap-2.5 text-crimson-600">
-              <span
-                aria-hidden="true"
-                className="brand-rule inline-block h-[2px] w-8 rounded-full"
-              />
-              {site.categoryLine}
-            </p>
+      <div className="shell relative pb-14 pt-10 sm:pb-20 sm:pt-14 lg:pb-24 lg:pt-20">
+        <div className="max-w-[46rem]">
+          <p className="rise delay-1 label-xs flex items-center gap-2.5 text-crimson-600">
+            <span
+              aria-hidden="true"
+              className="brand-rule inline-block h-[2px] w-8 shrink-0 rounded-full"
+            />
+            {site.categoryLine}
+          </p>
 
-            <h1 className="rise delay-2 mt-5 text-[clamp(2.125rem,8.2vw,4rem)] font-bold leading-[0.98] tracking-[-0.04em] text-navy-900">
-              <span className="block">VIRAJA</span>
-              <span className="block">CONSULTANCY</span>
-            </h1>
+          <h1 className="rise delay-2 mt-5 text-[clamp(2.25rem,9vw,4.25rem)] font-bold leading-[0.98] tracking-[-0.04em] text-navy-900">
+            <span className="block">VIRAJA</span>
+            <span className="block">CONSULTANCY</span>
+          </h1>
 
-            <p className="rise delay-3 mt-6 max-w-[24ch] text-[clamp(1rem,2.4vw,1.25rem)] font-semibold leading-snug tracking-[-0.015em] text-navy-800">
-              {site.brandStatement}
-            </p>
+          <p className="rise delay-3 mt-6 max-w-[26ch] text-[clamp(1.125rem,3.4vw,1.5rem)] font-semibold leading-snug tracking-[-0.02em] text-navy-800 sm:max-w-[30ch]">
+            {site.heroLine}
+          </p>
 
-            <p className="rise delay-4 mt-5 max-w-[46ch] text-[0.9375rem] leading-relaxed text-ink-soft sm:text-base">
-              {site.pillars.join('  |  ')}
-            </p>
+          <p className="rise delay-4 mt-4 max-w-[46ch] text-[0.9375rem] leading-relaxed text-ink-soft sm:text-base">
+            {site.heroSupport}
+          </p>
 
-            <div className="rise delay-5 mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ButtonLink href="/contact" size="lg" className="w-full sm:w-auto">
-                Contact Us
-                <FiArrowRight className="h-4 w-4" aria-hidden="true" focusable="false" />
-              </ButtonLink>
-              <ButtonLink
-                href="/services"
-                size="lg"
-                variant="secondary"
-                className="w-full sm:w-auto"
-              >
-                View Services
-              </ButtonLink>
-            </div>
-          </div>
-
-          {/* Emblem */}
-          <div className="rise delay-4 flex justify-center lg:justify-end">
-            <div className="relative flex w-full max-w-[19rem] items-center justify-center sm:max-w-[23rem] lg:max-w-none">
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 -m-6 rounded-[2rem] border border-line bg-white/70 shadow-card sm:-m-8"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-10 -bottom-5 h-16 rounded-full bg-navy-900/8 blur-2xl"
-              />
-              <BrandMark
-                heightClass="h-[9.5rem] sm:h-[13rem] lg:h-[15.5rem]"
-                priority
-                sizes="(min-width: 1024px) 357px, (min-width: 640px) 299px, 219px"
-                className="relative"
-              />
-            </div>
+          <div className="rise delay-5 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <ButtonLink href="/services" size="lg" className="w-full sm:w-auto">
+              Explore services
+              <FiArrowRight className="h-4 w-4" aria-hidden="true" focusable="false" />
+            </ButtonLink>
+            <ButtonLink
+              href="/contact"
+              size="lg"
+              variant="secondary"
+              className="w-full sm:w-auto"
+            >
+              Contact us
+            </ButtonLink>
           </div>
         </div>
 
-        {/* Thin brand band, echoing the curved card elements */}
-        <div aria-hidden="true" className="mt-14 flex items-center gap-3 sm:mt-20">
+        {/* Thin brand band, echoing the curved card elements. */}
+        <div aria-hidden="true" className="mt-12 flex items-center gap-3 sm:mt-16">
           <span className="brand-rule h-px flex-1 opacity-70" />
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-red" />
@@ -86,6 +68,10 @@ export function Hero() {
           </span>
           <span className="brand-rule h-px flex-1 opacity-70" />
         </div>
+
+        <p className="mt-6 text-[0.6875rem] font-semibold tracking-[0.28em] text-ink-muted">
+          {site.pillars.join('  |  ')}
+        </p>
       </div>
     </section>
   )

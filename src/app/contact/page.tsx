@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { FiMessageCircle, FiPhone } from 'react-icons/fi'
+import { FiMapPin } from 'react-icons/fi'
 import { BrandArcs } from '@/components/ui/brand-arcs'
+import { ButtonLink } from '@/components/ui/button'
 import { ContactCard } from '@/components/ui/contact-card'
 import { PageHeader } from '@/components/ui/page-header'
 import { Reveal } from '@/components/ui/reveal'
@@ -18,59 +19,43 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="We are easy to reach"
         title="CONTACT US"
-        lede="Call or WhatsApp directly — no forms, no waiting."
+        lede={`One person, one number. Call or WhatsApp ${contact.person} and describe your requirement — there are no forms to fill in.`}
       />
 
-      <section className="relative isolate overflow-hidden bg-white py-14 sm:py-20">
+      <section className="relative isolate overflow-hidden border-t border-line bg-white py-14 sm:py-20">
         <BrandArcs className="pointer-events-none absolute -right-24 -top-16 h-64 w-64 opacity-60" />
 
         <div className="shell relative">
-          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-8">
-            {/* Primary actions */}
+          <div className="grid gap-5 lg:grid-cols-[1fr_0.85fr] lg:items-start lg:gap-6">
             <Reveal>
-              <div className="rounded-panel border border-line bg-white p-6 shadow-card sm:p-8">
-                <p className="label-xs text-crimson-600">Primary actions</p>
-                <p className="mt-4 text-xl font-bold tracking-[-0.02em] text-navy-900 sm:text-2xl">
-                  {contact.person}
-                </p>
-                <p className="label-xs mt-2 text-ink-muted">Call / WhatsApp</p>
-                <a
-                  href={`tel:${contact.phone.tel}`}
-                  className="mt-2 inline-block text-[clamp(1.375rem,5vw,1.75rem)] font-bold tracking-[-0.03em] tabular-nums text-navy-900 transition-colors duration-200 hover:text-brand-blue"
-                >
-                  {contact.phone.display}
-                </a>
-
-                <div className="mt-8 flex flex-col gap-3">
-                  <a
-                    href={`tel:${contact.phone.tel}`}
-                    className="group/btn inline-flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-full bg-navy-900 px-6 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:bg-navy-800"
-                  >
-                    <FiPhone className="h-4.5 w-4.5" aria-hidden="true" focusable="false" />
-                    Call
-                  </a>
-                  <a
-                    href={contact.phone.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-[3.25rem] items-center justify-center gap-2.5 rounded-full border border-line-strong bg-white px-6 text-[0.9375rem] font-semibold text-navy-900 transition-colors duration-200 hover:border-azure-400 hover:bg-azure-50"
-                  >
-                    <FiMessageCircle className="h-4.5 w-4.5" aria-hidden="true" focusable="false" />
-                    WhatsApp
-                  </a>
-                  <a
-                    href="/address"
-                    className="inline-flex min-h-[3.25rem] items-center justify-center rounded-full px-6 text-[0.9375rem] font-semibold text-navy-700 transition-colors duration-200 hover:bg-navy-50"
-                  >
-                    View address
-                  </a>
-                </div>
-              </div>
+              <ContactCard heading="Call or WhatsApp" showAddress={false} />
             </Reveal>
 
-            {/* Address + full contact card */}
             <Reveal delay={0.08}>
-              <ContactCard heading="Where to find us" />
+              <div className="h-full rounded-panel border border-line bg-surface p-6 sm:p-7">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-navy-900 ring-1 ring-inset ring-line">
+                  <FiMapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
+                </span>
+
+                <h2 className="mt-5 text-[1.0625rem] font-bold tracking-[-0.02em] text-navy-900">
+                  Where to find us
+                </h2>
+
+                <address
+                  className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft not-italic"
+                  aria-label={address.singleLine}
+                >
+                  {address.lines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+
+                <ButtonLink href="/address" size="md" variant="secondary" className="mt-6 w-full">
+                  View address
+                </ButtonLink>
+              </div>
             </Reveal>
           </div>
 

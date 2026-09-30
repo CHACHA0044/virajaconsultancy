@@ -1,5 +1,11 @@
 import type { IconType } from 'react-icons'
-import { FiCreditCard, FiFileText, FiHome, FiPieChart, FiRadio, FiShare2 } from 'react-icons/fi'
+import {
+  FiBarChart2,
+  FiCreditCard,
+  FiFileText,
+  FiHome,
+  FiTrendingUp,
+} from 'react-icons/fi'
 import type { ServiceIconKey } from '@/lib/site-data'
 
 /**
@@ -9,26 +15,12 @@ import type { ServiceIconKey } from '@/lib/site-data'
 const icons: Record<ServiceIconKey, IconType> = {
   legal: FiFileText,
   banking: FiCreditCard,
-  finance: FiPieChart,
+  finance: FiBarChart2,
   'real-estate': FiHome,
-  'digital-marketing': FiShare2,
-  advertising: FiRadio,
-}
-
-const labels: Record<ServiceIconKey, string> = {
-  legal: 'Legal',
-  banking: 'Banking',
-  finance: 'Finance',
-  'real-estate': 'Real estate',
-  'digital-marketing': 'Digital marketing',
-  advertising: 'Advertising and promotion',
+  'digital-marketing': FiTrendingUp,
 }
 
 export function ServiceIcon({ name, className }: { name: ServiceIconKey; className?: string }) {
   const Icon = icons[name]
   return <Icon className={className} aria-hidden="true" focusable="false" />
-}
-
-export function serviceIconLabel(name: ServiceIconKey): string {
-  return labels[name]
 }

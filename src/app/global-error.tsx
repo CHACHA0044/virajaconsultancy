@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { contact } from '@/lib/site-data'
 
 /**
  * Last-resort boundary: replaces the whole document if the root layout itself
@@ -66,7 +67,7 @@ export default function GlobalError({
               color: '#3a4767',
             }}
           >
-            Please try again. If the problem continues, call or WhatsApp +91 8577982391.
+            Please try again. If the problem continues, call or WhatsApp {contact.phone.display}.
           </p>
           <div
             style={{
