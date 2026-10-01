@@ -9,7 +9,7 @@ import { address, contact } from '@/lib/site-data'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: `Contact ${contact.person} at ${contact.phone.display}. Call or WhatsApp ${contact.person}, ${address.city}.`,
+  description: `Contact ${contact.person}: call ${contact.phone.display} (${contact.phone.hours}) or WhatsApp ${contact.whatsapp.display} (${contact.whatsapp.hours}), ${address.city}.`,
   alternates: { canonical: '/contact' },
 }
 
@@ -19,7 +19,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="We are easy to reach"
         title="CONTACT US"
-        lede={`One person, one number. Call or WhatsApp ${contact.person} and describe your requirement — there are no forms to fill in.`}
+        lede={`One person, two numbers. Call or WhatsApp ${contact.person} during the hours shown and describe your requirement — there are no forms to fill in.`}
       />
 
       <section className="relative isolate overflow-hidden border-t border-line bg-white py-14 sm:py-20">

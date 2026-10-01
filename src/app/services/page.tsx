@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/ui/button'
+import { ContactActions } from '@/components/ui/contact-actions'
 import { PageHeader } from '@/components/ui/page-header'
 import { ServiceCard } from '@/components/ui/service-card'
 import { StaggerGroup, StaggerItem } from '@/components/ui/reveal'
@@ -40,29 +41,25 @@ export default function ServicesPage() {
                 Not sure where to start?
               </h2>
               <p className="mt-3 max-w-[46ch] text-[0.9375rem] leading-relaxed text-ink-soft">
-                Call or WhatsApp {contact.person} on{' '}
-                <a
-                  href={`tel:${contact.phone.tel}`}
-                  className="link-underline font-semibold tabular-nums text-navy-800"
-                >
-                  {contact.phone.display}
-                </a>{' '}
-                and describe your requirement.
+                Call or WhatsApp {contact.person} and describe your requirement.
               </p>
             </div>
 
-            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              <ButtonLink href="/contact" size="lg" className="w-full sm:w-auto">
-                Contact us
-              </ButtonLink>
-              <ButtonLink
-                href="/address"
-                size="lg"
-                variant="secondary"
-                className="w-full sm:w-auto"
-              >
-                View address
-              </ButtonLink>
+            <div className="flex w-full flex-col gap-3 sm:w-auto">
+              <ContactActions size="lg" />
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <ButtonLink href="/contact" size="lg" className="w-full sm:w-auto">
+                  Contact us
+                </ButtonLink>
+                <ButtonLink
+                  href="/address"
+                  size="lg"
+                  variant="secondary"
+                  className="w-full sm:w-auto"
+                >
+                  View address
+                </ButtonLink>
+              </div>
             </div>
           </div>
         </div>

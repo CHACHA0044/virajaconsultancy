@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FiArrowLeft, FiArrowRight, FiCheck } from 'react-icons/fi'
 import { BrandArcs } from '@/components/ui/brand-arcs'
 import { ButtonLink } from '@/components/ui/button'
+import { ContactActions } from '@/components/ui/contact-actions'
 import { Reveal, StaggerGroup, StaggerItem } from '@/components/ui/reveal'
 import { ServiceIcon } from '@/components/ui/service-icon'
 import type { Service } from '@/lib/site-data'
@@ -102,14 +103,10 @@ export function ServiceDetail({ service }: { service: Service }) {
                     {contact.person}
                   </p>
                   <p className="label-xs mt-2 text-ink-muted">Call / WhatsApp</p>
-                  <a
-                    href={`tel:${contact.phone.tel}`}
-                    className="link-underline mt-1.5 inline-block text-[1.125rem] font-bold tabular-nums text-navy-800 transition-colors duration-200 ease-brand hover:text-brand-blue"
-                  >
-                    {contact.phone.display}
-                  </a>
 
-                  <ButtonLink href="/contact" size="md" className="mt-5 w-full">
+                  <ContactActions className="mt-3" />
+
+                  <ButtonLink href="/contact" size="md" className="mt-3 w-full">
                     Contact us
                   </ButtonLink>
                 </div>

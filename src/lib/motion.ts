@@ -70,5 +70,32 @@ export const drawerItemVariants = {
   exit: { opacity: 0 },
 } as const
 
+/**
+ * Number picker on wider screens. A small anchored popover, so it enters from
+ * the edge nearest the button that opened it. Transform and opacity only.
+ */
+export const pickerPopoverVariants = {
+  hidden: { opacity: 0, y: -6, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -4, scale: 0.98 },
+} as const
+
+/** The same popover, opening upwards when the button sits low on the page. */
+export const pickerPopoverAboveVariants = {
+  hidden: { opacity: 0, y: 6, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: 4, scale: 0.98 },
+} as const
+
+/**
+ * Number picker on small screens: a compact action sheet that rises from the
+ * bottom edge, the way a native call menu does.
+ */
+export const pickerSheetVariants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 20 },
+} as const
+
 /** IntersectionObserver settings — reveal a little before the element is centred. */
 export const viewportOnce = { once: true, margin: '0px 0px -12% 0px' } as const

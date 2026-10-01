@@ -3,7 +3,8 @@
  *
  * Nothing here may be invented: all values are verified business data.
  * Components and pages import from this file rather than hard-coding strings,
- * so the phone number, address and brand wording can only ever exist in one place.
+ * so the phone numbers, address and brand wording can only ever exist in one
+ * place.
  */
 
 export const site = {
@@ -28,16 +29,61 @@ export const site = {
     'Viraja Consultancy — real estate and digital marketing solutions. Legal, banking, finance, real estate, digital marketing, advertising and promotion. Lucknow, Uttar Pradesh.',
 } as const
 
+export type PhoneLine = {
+  /** Stable key, also used for list keys. */
+  readonly id: string
+  /** What the line is, announced before the number for screen readers. */
+  readonly label: string
+  /** Human readable. Exactly as supplied — never reformatted. */
+  readonly display: string
+  /** `tel:` target. */
+  readonly tel: string
+  /** When the line is answered, exactly as supplied. */
+  readonly hours: string
+}
+
+/** The office line. Listed first, so it is the number shown by default. */
+const officePhone: PhoneLine = {
+  id: 'office',
+  label: 'Office line',
+  display: '0522 4082080',
+  tel: '05224082080',
+  hours: '10:00 AM – 4:00 PM',
+}
+
+/** The mobile line, which is also the WhatsApp contact. */
+const mobilePhone: PhoneLine = {
+  id: 'mobile',
+  label: 'Mobile and WhatsApp line',
+  display: '+91 8577982391',
+  tel: '+918577982391',
+  hours: '9:00 AM – 9:00 PM',
+}
+
+/**
+ * Both official numbers, in the order the number picker lists them.
+ *
+ * The site never shows these side by side as buttons: every Call action is a
+ * single button that opens this list, and the visitor picks the line to use.
+ * WhatsApp is deliberately not part of this list — it always opens the mobile
+ * line directly.
+ */
+export const phoneLines: readonly PhoneLine[] = [officePhone, mobilePhone] as const
+
 export const contact = {
   person: 'AJAY DEMBLA',
-  /** The only phone number used anywhere on this site. */
-  phone: {
-    /** Human readable. */
-    display: '+91 8577982391',
-    /** `tel:` target. */
-    tel: '+918577982391',
+  /** Every line the number picker may offer. */
+  phones: phoneLines,
+  /** The office line, used for plain call copy such as page metadata. */
+  phone: officePhone,
+  /**
+   * WhatsApp is one fixed destination and is never a choice: it always opens
+   * the mobile line, whether it is reached from a button, a link or the footer.
+   */
+  whatsapp: {
+    ...mobilePhone,
     /** Click-to-chat target. */
-    whatsapp: 'https://wa.me/918577982391',
+    href: 'https://wa.me/918577982391',
   },
 } as const
 

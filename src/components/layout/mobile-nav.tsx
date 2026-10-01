@@ -5,8 +5,9 @@ import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { FiArrowUpRight, FiMessageCircle, FiPhone } from 'react-icons/fi'
-import { contact, navigation, site } from '@/lib/site-data'
+import { FiArrowUpRight } from 'react-icons/fi'
+import { ContactActions } from '@/components/ui/contact-actions'
+import { navigation, site } from '@/lib/site-data'
 import {
   DURATION,
   EASE,
@@ -15,6 +16,7 @@ import {
   drawerItemVariants,
   drawerVariants,
 } from '@/lib/motion'
+import { useScrollLock } from '@/lib/use-scroll-lock'
 import { cn } from '@/lib/utils'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
@@ -23,44 +25,6 @@ const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1
 const subscribeToNothing = () => () => {}
 const isClient = () => true
 const isServer = () => false
-
-/**
- * Locks page scrolling while the sheet is open, including on iOS where
- * `overflow: hidden` alone does not stop the page moving under the overlay.
- * The scroll offset is restored exactly on close.
- */
-function useScrollLock(active: boolean) {
-  useEffect(() => {
-    if (!active) return
-
-    const { body } = document
-    const previous = {
-      position: body.style.position,
-      top: body.style.top,
-      width: body.style.width,
-      overflow: body.style.overflow,
-      paddingRight: body.style.paddingRight,
-    }
-
-    const scrollY = window.scrollY
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-
-    body.style.position = 'fixed'
-    body.style.top = `-${scrollY}px`
-    body.style.width = '100%'
-    body.style.overflow = 'hidden'
-    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`
-
-    return () => {
-      body.style.position = previous.position
-      body.style.top = previous.top
-      body.style.width = previous.width
-      body.style.overflow = previous.overflow
-      body.style.paddingRight = previous.paddingRight
-      window.scrollTo(0, scrollY)
-    }
-  }, [active])
-}
 
 export function MobileNav({
   open,
@@ -90,10 +54,7 @@ export function MobileNav({
   useEffect(() => {
     if (!open) return
 
-    const focusTimer = window.setTimeout(
-      () => panelRef.current?.focus({ preventScroll: true }),
-      90,
-    )
+    const focusTimer = window.setTimeout(() => panelRef.current?.focus({ preventScroll: true }), 90)
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -155,9 +116,7 @@ export function MobileNav({
 
   // Reduced motion collapses every duration and removes the stagger entirely.
   const transition = reduce ? { duration: 0 } : { duration: DURATION.fast, ease: EASE }
-  const staggerVariants = reduce
-    ? drawerGroupVariants(0)
-    : drawerGroupVariants(0.04, 0.05)
+  const staggerVariants = reduce ? drawerGroupVariants(0) : drawerGroupVariants(0.04, 0.05)
 
   return createPortal(
     <AnimatePresence>
@@ -224,7 +183,11 @@ export function MobileNav({
                 {navigation.map((item) => {
                   const active = isActive(item.href)
                   return (
-                    <motion.li key={item.href} variants={drawerItemVariants} transition={transition}>
+                    <motion.li
+                      key={item.href}
+                      variants={drawerItemVariants}
+                      transition={transition}
+                    >
                       <Link
                         href={item.href}
                         onClick={onClose}
@@ -267,55 +230,10 @@ export function MobileNav({
 
             {/* Primary action, always the easiest thing to reach. */}
             <div className="shrink-0 border-t border-line px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-5">
-              <motion.div
-                variants={staggerVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
+              <motion.div variants={staggerVariants} initial="hidden" animate="visible" exit="exit">
                 <p className="label-xs text-ink-muted">Call / WhatsApp</p>
 
-                <div className="mt-3 flex flex-col gap-2.5">
-                  <a
-                    href={contact.phone.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={onClose}
-                    className="group/call flex min-h-[3.25rem] items-center justify-between gap-3 rounded-full bg-navy-900 px-5 text-[0.9375rem] font-semibold text-white transition-colors duration-200 ease-brand hover:bg-navy-800"
-                  >
-                    <span className="flex min-w-0 items-center gap-2.5">
-                      <FiMessageCircle
-                        className="h-4 w-4 shrink-0 text-azure-200"
-                        aria-hidden="true"
-                        focusable="false"
-                      />
-                      <span className="truncate">WhatsApp</span>
-                    </span>
-                    <FiArrowUpRight
-                      className="h-4 w-4 shrink-0 text-azure-200 transition-transform duration-200 ease-brand group-hover/call:translate-x-0.5"
-                      aria-hidden="true"
-                      focusable="false"
-                    />
-                  </a>
-
-                  <a
-                    href={`tel:${contact.phone.tel}`}
-                    onClick={onClose}
-                    className="group/call flex min-h-[3.25rem] items-center justify-between gap-3 rounded-full border border-line-strong bg-white px-5 text-[0.9375rem] font-semibold tabular-nums text-navy-900 transition-colors duration-200 ease-brand hover:border-azure-400 hover:bg-azure-50"
-                  >
-                    <span className="flex min-w-0 items-center gap-2.5">
-                      <FiPhone
-                        className="h-4 w-4 shrink-0 text-navy-700"
-                        aria-hidden="true"
-                        focusable="false"
-                      />
-                      <span className="truncate">{contact.person}</span>
-                    </span>
-                    <span className="shrink-0 text-[0.8125rem] text-ink-muted transition-colors duration-200 group-hover/call:text-navy-700">
-                      {contact.phone.display}
-                    </span>
-                  </a>
-                </div>
+                <ContactActions size="sm" onSelectCall={onClose} className="mt-3" />
               </motion.div>
             </div>
           </motion.div>

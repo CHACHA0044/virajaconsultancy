@@ -1,12 +1,13 @@
-import { FiMapPin, FiMessageCircle, FiPhone } from 'react-icons/fi'
+import { FiMapPin } from 'react-icons/fi'
 import { ButtonLink } from '@/components/ui/button'
+import { ContactActions } from '@/components/ui/contact-actions'
 import { Reveal } from '@/components/ui/reveal'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { contact } from '@/lib/site-data'
 
 /**
- * One contact block for the whole site: the person, the single phone number
- * and the three ways to reach them.
+ * One contact block for the whole site: the person, and the two ways to reach
+ * them. The Call button opens the number picker rather than a single number.
  */
 export function ContactPreview() {
   return (
@@ -17,7 +18,7 @@ export function ContactPreview() {
             <SectionHeading
               eyebrow="Get in touch"
               title="CALL OR WHATSAPP"
-              description="One number, one person. Reach Viraja Consultancy directly and describe your requirement."
+              description="One person, two numbers. Reach Viraja Consultancy directly and describe your requirement."
               tone="dark"
             />
           </Reveal>
@@ -28,46 +29,23 @@ export function ContactPreview() {
                 {contact.person}
               </p>
 
-              <p className="label-xs mt-3 text-azure-300">Call / WhatsApp</p>
+              <p className="label-xs mt-3 text-azure-300">Availability</p>
+              <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-azure-100/85">
+                The office line is answered {contact.phone.hours}. WhatsApp is answered{' '}
+                {contact.whatsapp.hours}. Tap call to choose a number.
+              </p>
 
-              <a
-                href={`tel:${contact.phone.tel}`}
-                className="mt-1.5 inline-flex items-center gap-2.5 text-[clamp(1.25rem,4.6vw,1.625rem)] font-bold tracking-[-0.02em] tabular-nums text-white transition-colors duration-200 ease-brand hover:text-azure-200"
+              <ContactActions tone="dark" size="lg" className="mt-7" />
+
+              <ButtonLink
+                href="/address"
+                variant="onDarkGhost"
+                size="lg"
+                className="mt-2.5 w-full text-[0.9375rem]"
               >
-                <FiPhone
-                  className="h-5 w-5 shrink-0 text-azure-300"
-                  aria-hidden="true"
-                  focusable="false"
-                />
-                {contact.phone.display}
-              </a>
-
-              <div className="mt-7 flex flex-col gap-2.5 sm:flex-row">
-                <a
-                  href={`tel:${contact.phone.tel}`}
-                  className="group/btn inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 text-[0.875rem] font-semibold text-navy-900 transition-colors duration-200 ease-brand hover:bg-azure-50"
-                >
-                  <FiPhone className="h-4 w-4" aria-hidden="true" focusable="false" />
-                  Call
-                </a>
-                <a
-                  href={contact.phone.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-[0.875rem] font-semibold text-white transition-colors duration-200 ease-brand hover:border-white/55 hover:bg-white/10"
-                >
-                  <FiMessageCircle className="h-4 w-4" aria-hidden="true" focusable="false" />
-                  WhatsApp
-                </a>
-                <ButtonLink
-                  href="/address"
-                  variant="onDarkGhost"
-                  className="min-h-12 flex-1 px-5 text-[0.875rem]"
-                >
-                  <FiMapPin className="h-4 w-4" aria-hidden="true" focusable="false" />
-                  View address
-                </ButtonLink>
-              </div>
+                <FiMapPin className="h-4 w-4" aria-hidden="true" focusable="false" />
+                View address
+              </ButtonLink>
             </div>
           </Reveal>
         </div>

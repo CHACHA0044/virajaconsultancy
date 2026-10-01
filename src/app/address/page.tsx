@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { FiArrowUpRight, FiMapPin } from 'react-icons/fi'
 import { ButtonLink } from '@/components/ui/button'
+import { ContactActions } from '@/components/ui/contact-actions'
 import { PageHeader } from '@/components/ui/page-header'
 import { Reveal } from '@/components/ui/reveal'
 import { address, contact } from '@/lib/site-data'
@@ -31,7 +32,7 @@ export default function AddressPage() {
     Viraja Consultancy
   </h2>
 </div>
-              <p className="mt-4 border-l-2 border-azure-200 pl-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
+                <p className="mt-4 border-l-2 border-azure-200 pl-3.5 text-[0.9375rem] leading-relaxed text-ink-soft">
   Find us at <span className="animate-pulse">...</span>
 </p>
                 <address
@@ -50,14 +51,8 @@ export default function AddressPage() {
                     Get directions
                     <FiArrowUpRight className="h-4 w-4" aria-hidden="true" focusable="false" />
                   </ButtonLink>
-                  {/* <ButtonLink
-                    href={`tel:${contact.phone.tel}`}
-                    size="lg"
-                    variant="secondary"
-                    className="w-full"
-                  >
-                    Call {contact.phone.display}
-                  </ButtonLink> */}
+
+                  <ContactActions />
                 </div>
               </div>
             </Reveal>

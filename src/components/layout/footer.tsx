@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import { FiArrowUpRight, FiMapPin, FiMessageCircle, FiPhone } from 'react-icons/fi'
+import { FiArrowUpRight, FiMapPin, FiMessageCircle } from 'react-icons/fi'
 import { BrandMark } from '@/components/ui/brand-mark'
 import { BrandArcsMirror } from '@/components/ui/brand-arcs'
+import { PhoneButton } from '@/components/ui/phone-selection'
+import { WhatsAppLink } from '@/components/ui/whatsapp-link'
 import { address, contact, getServiceHref, navigation, services, site } from '@/lib/site-data'
 
 const year = new Date().getFullYear()
@@ -82,37 +84,31 @@ export function Footer() {
 
             <ul className="mt-3.5 flex flex-col gap-2.5">
               <li>
-                <a
-                  href={`tel:${contact.phone.tel}`}
-                  className="inline-flex items-center gap-2.5 text-[0.875rem] tabular-nums text-azure-100/85 transition-colors duration-200 hover:text-white"
-                >
-                  <FiPhone
-                    className="h-3.5 w-3.5 text-azure-300"
-                    aria-hidden="true"
-                    focusable="false"
-                  />
-                  {contact.phone.display}
-                </a>
+                {/* One button rather than a number: it opens the picker with
+                    both lines, so neither number is printed here. */}
+                <PhoneButton
+                  iconClassName="h-3.5 w-3.5 text-azure-300"
+                  className="inline-flex min-h-11 items-center gap-2.5 text-[0.875rem] text-azure-100/85 transition-colors duration-200 ease-brand hover:text-white"
+                />
               </li>
               <li>
-                <a
-                  href={contact.phone.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-[0.875rem] text-azure-100/85 transition-colors duration-200 hover:text-white"
+                <WhatsAppLink
+                  icon={false}
+                  srSuffix=""
+                  className="inline-flex min-h-11 items-center gap-2.5 text-[0.875rem] text-azure-100/85 transition-colors duration-200 ease-brand hover:text-white"
                 >
                   <FiMessageCircle
-                    className="h-3.5 w-3.5 text-azure-300"
+                    className="h-3.5 w-3.5 shrink-0 text-azure-300"
                     aria-hidden="true"
                     focusable="false"
                   />
-                  WhatsApp
+                  <span className="min-w-0 truncate">WhatsApp</span>
                   <FiArrowUpRight
-                    className="h-3 w-3 opacity-60"
+                    className="h-3 w-3 shrink-0 opacity-60"
                     aria-hidden="true"
                     focusable="false"
                   />
-                </a>
+                </WhatsAppLink>
               </li>
               <li>
                 {/* The footer links to the address page rather than repeating the

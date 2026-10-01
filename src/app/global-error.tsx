@@ -67,7 +67,7 @@ export default function GlobalError({
               color: '#3a4767',
             }}
           >
-            Please try again. If the problem continues, call or WhatsApp {contact.phone.display}.
+            {`Please try again. If the problem continues, call ${contact.phone.display} (${contact.phone.hours}) or WhatsApp ${contact.whatsapp.display} (${contact.whatsapp.hours}).`}
           </p>
           <div
             style={{

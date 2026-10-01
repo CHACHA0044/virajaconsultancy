@@ -3,7 +3,8 @@ import { FiArrowUpRight, FiMessageCircle, FiPhone } from 'react-icons/fi'
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
 import { PageHeader } from '@/components/ui/page-header'
-import { Reveal, StaggerGroup, StaggerItem } from '@/components/ui/reveal'
+import { PhoneButton } from '@/components/ui/phone-selection'
+import { StaggerGroup, StaggerItem } from '@/components/ui/reveal'
 import type { SocialPlatform } from '@/lib/site-data'
 import { contact, site, socialLinks, socialPlatforms } from '@/lib/site-data'
 
@@ -20,15 +21,17 @@ const platformIcons: Record<SocialPlatform, IconType> = {
   youtube: FaYoutube,
 }
 
+/** How a box behaves: an external profile, the phone picker, or not yet. */
+type Kind = 'external' | 'phone' | 'soon'
+
 type Option = {
   key: string
   label: string
   icon: IconType
   note: string
-  /** Absent means the profile is not verified yet, so nothing is linked. */
+  kind: Kind
+  /** Only external options are linked. */
   href?: string
-  /** External links open in a new tab; `tel:` links do not. */
-  external?: boolean
   numeric?: boolean
 }
 
@@ -41,33 +44,34 @@ const options: readonly Option[] = [
       label: item.label,
       icon: platformIcons[item.platform],
       note: link ? 'Profile' : 'Soon',
+      kind: link ? 'external' : 'soon',
       href: link?.href,
-      external: Boolean(link),
     }
   }),
   {
     key: 'whatsapp',
     label: 'WhatsApp',
     icon: FiMessageCircle,
-    note: contact.phone.display,
-    href: contact.phone.whatsapp,
-    external: true,
+    note: contact.whatsapp.display,
+    kind: 'external',
+    href: contact.whatsapp.href,
     numeric: true,
   },
   {
     key: 'phone',
     label: 'Phone',
     icon: FiPhone,
-    note: contact.phone.display,
-    href: `tel:${contact.phone.tel}`,
-    numeric: true,
+    // Both lines are one tap away, so the box never names one of them.
+    note: `${contact.phones.length} numbers`,
+    kind: 'phone',
   },
 ] as const
 
 /**
- * One card definition for all six options. Because every box — linked or not —
- * is built from these three strings, the size, radius, padding, icon and text
- * alignment cannot drift apart between options or between breakpoints.
+ * One card definition for all six options. Because every box — linked, a phone
+ * picker, or not — is built from these three strings and this one class list,
+ * the size, radius, padding, icon and text alignment cannot drift apart between
+ * options or between breakpoints.
  */
 const CARD =
   'relative flex h-full min-h-[8.5rem] w-full flex-col items-center justify-center gap-2.5 rounded-card border border-line bg-white px-3 py-5 text-center'
@@ -83,7 +87,7 @@ function OptionBody({ option }: { option: Option }) {
           <Icon className="h-5 w-5" aria-hidden="true" focusable="false" />
         </span>
         {/* Affordance only — absolutely placed, so it never changes the box size. */}
-        {option.external ? (
+        {option.kind === 'external' ? (
           <FiArrowUpRight
             className="absolute -right-1 -top-1 h-3.5 w-3.5 text-azure-400"
             aria-hidden="true"
@@ -121,15 +125,24 @@ export default function FollowUsPage() {
           <StaggerGroup className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {options.map((option) => (
               <StaggerItem key={option.key} className="h-full">
-                {option.href ? (
-                  <a
-                    href={option.href}
-                    target={option.external ? '_blank' : undefined}
-                    rel={option.external ? 'noopener noreferrer' : undefined}
+                {option.kind === 'phone' ? (
+                  <PhoneButton
+                    icon={false}
+                    chevron={false}
+                    aria-label={`Phone — choose from ${contact.phones.length} numbers`}
                     className={CARD_LINK}
                   >
                     <OptionBody option={option} />
-                    {option.external ? <span className="sr-only">(opens in a new tab)</span> : null}
+                  </PhoneButton>
+                ) : option.kind === 'external' ? (
+                  <a
+                    href={option.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={CARD_LINK}
+                  >
+                    <OptionBody option={option} />
+                    <span className="sr-only">(opens in a new tab)</span>
                   </a>
                 ) : (
                   <div className={CARD_PLAIN}>
@@ -139,14 +152,6 @@ export default function FollowUsPage() {
               </StaggerItem>
             ))}
           </StaggerGroup>
-
-          {/* <Reveal delay={0.12}>
-            <p className="mt-7 max-w-[52ch] text-[0.8125rem] leading-relaxed text-ink-muted">
-              LinkedIn and YouTube have not been confirmed for this business yet, so they are left
-              unlinked rather than guessed. An official profile is added here as soon as it is
-              verified.
-            </p>
-          </Reveal> */}
         </div>
       </section>
     </>
