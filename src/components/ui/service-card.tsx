@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils'
  */
 export function ServiceCard({
   service,
-  index,
   className,
 }: {
   service: Service
