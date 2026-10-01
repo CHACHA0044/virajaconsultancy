@@ -1,12 +1,11 @@
-import { FiArrowRight } from 'react-icons/fi'
 import { BrandArcs } from '@/components/ui/brand-arcs'
-import { ButtonLink } from '@/components/ui/button'
 import { Reveal } from '@/components/ui/reveal'
 import { serviceAreaSentence, site } from '@/lib/site-data'
 
 /**
  * The brand statement, written out as a section rather than a large decorative
- * logo block: it says what the consultancy covers and leads to /services.
+ * logo block: it says what the consultancy covers. Every service area named
+ * below is linked from the section that follows, so nothing is repeated here.
  */
 export function BrandStatement() {
   return (
@@ -25,11 +24,6 @@ export function BrandStatement() {
             <p className="mt-5 max-w-[44ch] text-[0.9375rem] leading-relaxed text-ink-soft sm:text-base">
               Explore our service areas across {serviceAreaSentence}.
             </p>
-
-            <ButtonLink href="/services" size="lg" className="mt-7 w-full sm:w-auto">
-              Explore services
-              <FiArrowRight className="h-4 w-4" aria-hidden="true" focusable="false" />
-            </ButtonLink>
           </div>
         </Reveal>
       </div>
